@@ -1,0 +1,159 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.App {
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  background-color: rgb(46, 46, 90);
+  display: flex;
+  flex-direction: column; /* Align components vertically */
+}
+
+.Navbar {
+  flex: 0 0 10%; /* Occupies 10% of the height */
+  width: 100%;
+}
+
+.cardlayout {
+  flex: 1; /* Occupies the remaining space, which is 80% */
+  width: 100%;
+  text-align: center;
+}
+
+.foot {
+  flex: 0 0 10%; /* Occupies 10% of the height */
+  padding: 0px 20px;
+  background-color: rgb(28, 28, 39);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-right: 40px;
+}
+
+.foot .logo {
+  padding-left: 10px;
+}
+
+.foot .socials {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.foot .footer-bottom {
+  padding-left: 30px;
+}
+
+.foot .socials i {
+  font-size: 1.35em;  
+  padding: 0 10px;
+}
+
+.formessentials{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.form-instructions{
+  /* background-color: red; */
+  width: 35%;
+  height: 100%;
+  color: white;
+  padding-left: 70px;
+  padding-top: 45px;
+}
+
+.forminfo{
+  /* background-color: red; */
+  width: 60%;
+  height: 100%;
+  /* border-left: solid white 2px; */
+  color: white;
+  padding-right: 80px;
+}
+
+.border{
+  height: 80%;
+  border: solid white 2px;
+}
+
+.Complain{
+  flex: 1; /* Occupies the remaining space, which is 80% */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.complaintracker{
+    flex: 1; /* Occupies the remaining space, which is 80% */
+    width: 100%;
+}
+
+.Complain h2{
+  text-align: center;
+}
+
+.complain-form {
+  display: grid;
+  grid-template-columns: 150px 1fr; /* Adjust the width of the label column as needed */
+  gap: 30px; /* Space between label and input field */
+  margin-top: 50px;
+}
+
+.form-group {
+  display: contents;
+}
+
+.form-group label {
+  font-weight: bold;
+  text-align: right;
+  padding-right: 10px;
+  align-self: center;
+}
+
+.form-group textarea,
+.form-group input {
+  width: 100%;
+}
+
+.form-group input[type="date"] {
+  width: auto;
+}
+
+.status-card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: rgba(255,255,255,0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 5px;
+  height: 80px;
+  padding: 0 20px;
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.status-card:hover {
+  transform: translateY(-5px); /* Lift the card up by 5px */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Increase the shadow to enhance the lift effect */
+}
+
+.query-cards{
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  align-items: center; 
+}
