@@ -1,6 +1,26 @@
 import React from "react";
 
 export default function QueryCards() {
+  const [queries, setQueries] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/queries");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log(data); // Print the data to the console
+        setQueries(data); // Optionally set the data to state
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
   return (
     <div className="cardlayout">
     <h2>TOP QUERIES</h2>
