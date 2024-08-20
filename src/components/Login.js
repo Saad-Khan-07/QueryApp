@@ -1,28 +1,19 @@
 import React, { useState } from "react";
 
 export default function Login({ allowDashboard }) {
-    const [userval, setUserValue] = useState('');
-    const [passval, setPassValue] = useState('');
+    const [userval, setUserval] = useState("");
+    const [passval, setPassval] = useState("");
 
-    const storeuser = (event) => {
-        setUserValue(event.target.value);
-    };
-
-    const storepass = (event) => {
-        setPassValue(event.target.value);
-    };
-
-    const handlelogin = async (e) => {
-        e.preventDefault();
-
-        // Create the JSON data
+    const handlelogin = async (event) => {
+        event.preventDefault();
+        
         const loginData = {
-            username: userval,
-            password: passval
+            username: userval,  // assuming the backend expects 'username' instead of 'email'
+            password: passval,
         };
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/gettoken', {  // Use /gettoken endpoint
+            const response = await fetch('http://localhost:8000/gettoken', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,20 +21,33 @@ export default function Login({ allowDashboard }) {
                 body: JSON.stringify(loginData),
             });
 
-            const data = await response.json();
-
             if (response.ok) {
-                console.log("Login successful:", data);
-                console.log("Access Token:", data.access);  // Print the access token
-                console.log("Refresh Token:", data.refresh); // Print the refresh token
-                allowDashboard(); // Redirect to dashboard
+                const data = await response.json();
+                console.log(data)
+                localStorage.setItem('token', data.token); // store token in local storage
+                localStorage.setItem('userid',data.user_id);
+                localStorage.setItem('username',data.username);
+                localStorage.setItem('firstname',data.firstname);
+                localStorage.setItem('lastname',data.lastname);
+                localStorage.setItem('email',data.email)
+
+                allowDashboard();  // redirect to dashboard or whatever your post-login logic is
             } else {
-                console.log("Login failed:", data);
-                // Handle error response here
+                console.error('Login failed');
+                // handle login failure (e.g., show an error message)
             }
         } catch (error) {
-            console.error("Error during login:", error);
+            console.error('Error:', error);
+            // handle error (e.g., show an error message)
         }
+    };
+
+    const storeuser = (event) => {
+        setUserval(event.target.value);
+    };
+
+    const storepass = (event) => {
+        setPassval(event.target.value);
     };
 
     return (
