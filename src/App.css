@@ -125,16 +125,17 @@ body {
 .Complain h2{
   text-align: center;
 }
-
 .complain-form {
   display: grid;
-  grid-template-columns: 150px 1fr; /* Adjust the width of the label column as needed */
-  gap: 30px; /* Space between label and input field */
-  margin-top: 50px;
+  grid-template-columns: 1fr; /* Single column layout */
+  gap: 20px; /* Space between rows */
+  margin-top: 20px;
 }
 
 .form-group {
-  display: contents;
+  display: grid;
+  grid-template-columns: 150px 1fr; /* Adjust the width of the label column as needed */
+  gap: 10px; /* Space between label and input field */
 }
 
 .form-group label {
@@ -151,6 +152,9 @@ body {
 
 .form-group input[type="date"] {
   width: auto;
+}
+.form-group button{
+  width: 50%;
 }
 
 .status-card {
