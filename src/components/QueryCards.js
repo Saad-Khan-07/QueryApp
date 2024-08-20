@@ -1,36 +1,40 @@
 import React, { useEffect, useState } from "react";
 
 export default function QueryCards() {
-  const [queries, setQueries] = useState([]);
+  const [queries, setQueries] = useState([]); // State to store the fetched queries
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Retrieve the access token from local storage
-        const accessToken = localStorage.getItem('accessToken');
-        console.log("Access Token:", accessToken);
+    // Function to fetch queries from the API
+    const fetchQueries = async () => {
+      const token = localStorage.getItem('token'); // Retrieve the token from localStorage
 
-        const response = await fetch("http://127.0.0.1:8000/queryapiview", {
-          method: "GET",
+      if (!token) {
+        console.error('No token found, please log in first.');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:8000/queryapiview', {
+          method: 'GET',
           headers: {
-            'Authorization': `Bearer 28ac8620a904aab63945a552a5a5cfe5ad688c54`,
+            'Authorization': `Token ${token}`, // Use the token in the Authorization header
+            'Content-Type': 'application/json',
           },
         });
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+        if (response.ok) {
+          const data = await response.json();
+          setQueries(data); // Update the state with the fetched queries
+        } else {
+          console.error('Failed to fetch queries');
         }
-
-        const data = await response.json();
-        setQueries(data); // Set the data in state
-        console.log("Data fetched from API:", data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error:', error);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchQueries(); // Call the fetch function when the component mounts
+  }, []); // The empty dependency array ensures this runs only once when the component mounts
 
   return (
     <div className="cardlayout">
@@ -43,8 +47,7 @@ export default function QueryCards() {
                 <div className="card-body">
                   <h5 className="card-title">{element.Title}</h5>
                   <p className="card-text">
-                    <strong>Query ID:</strong> {element.Posted_by}{" "}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <strong>Query ID:</strong> {element.id} <br />
                     <strong>User ID:</strong> {element.Posted_by} <br />
                     <strong>Location:</strong> {element.Location} <br />
                     <strong>Description:</strong> {element.Description} <br />
